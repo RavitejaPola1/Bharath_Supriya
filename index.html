@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marriage Ceremony - Bharath & Supriya Sai</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('background_2.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            text-align: center;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            animation: fadeIn 2s ease-in;
+        }
+
+        .event-title {
+            color: darkred;
+            font-size: 32px;
+            margin-top: 10px;
+        }
+
+        .image-container, #slideshow {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .groom-img, .bride-img {
+            width: 230px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .announcement, #countdown {
+            font-size: 18px;
+            background-color: #f7f3e9;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: darkred;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        footer {
+            background-color: #faebd7;
+            padding: 15px;
+            font-size: 16px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        #petals-js {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Petals Effect -->
+<div id="petals-js"></div>
+
+<header>
+    <h1>BR Events</h1>
+    <p>eventlive06@gmail.com | +1 334-557-4361</p>
+</header>
+
+<div class="container fade-in">
+    <h3>You're cordially invited to the wedding of</h3>
+    <h1 class="event-title">Bharath & Supriya Sai</h1>
+    
+    <img src="Couple.jpeg" width="380" height="720" alt="Couple Poster">
+    
+    <div class="image-container">
+        <div>
+            <img src="Barath_croppped.jpeg" class="groom-img" alt="Bharath">
+            <p><strong>Bharath</strong><br>Son of Nomula Venkata Prasad & Padmavathi</p>
+        </div>
+        <div>
+            <img src="Supriya_Cropped.jpeg" class="bride-img" alt="Supriya">
+            <p><strong>Supriya Sai</strong><br>Daughter of Sarepalli Durga Prasad & Gargavi Devi</p>
+        </div>
+    </div>
+
+    <!-- Countdown -->
+    <div id="countdown" class="announcement"></div>
+
+    <!-- Slideshow -->
+    <div id="slideshow"></div>
+
+    <!-- Live Stream -->
+    <div class="announcement">
+        <strong>The live broadcast of the wedding will begin shortly!</strong>
+    </div>
+    <!--<iframe 
+        src="https://player.twitch.tv/?channel=liveevent06&parent=ravitejapola1.github.io" 
+        height="378" width="620"
+        allowfullscreen>
+    </iframe>-->
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/PRsSwIAmuGA?si=NX0j91CKKdvJ8mic" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+    <!-- Background Music -->
+    <audio id="bgm" loop autoplay hidden>
+        <source src="Thana-Pranale-Neevani.mp3" type="audio/mpeg">
+    </audio>
+    <button onclick="toggleMusic()">🔊 Toggle Background Music</button>
+</div>
+
+<footer>
+    <p>&copy; 2025 <i>BRliveevents</i></p>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+    // Petals Animation
+    particlesJS("petals-js", {
+        "particles": {
+            "number": { "value": 30 },
+            "shape": {
+                "type": "image",
+                "image": { "src": "flower.png", "width": 40, "height": 40 }
+            },
+            "size": { "value": 20 },
+            "move": { "direction": "bottom", "speed": 1 }
+        }
+    });
+
+    // Countdown Timer
+    const weddingDate = new Date("2025-04-13:00:54").getTime();
+    const countdown = setInterval(() => {
+        const now = new Date().getTime();
+        const dist = weddingDate - now;
+        if (dist < 0) {
+            clearInterval(countdown);
+            document.getElementById("countdown").innerHTML = "💍 The wedding is now live!";
+            return;
+        }
+        const days = Math.floor(dist / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((dist % (1000 * 60)) / 1000);
+        document.getElementById("countdown").innerHTML = 
+            `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s left until the big day!`;
+    }, 1000);
+
+    // Background Music Toggle
+    function toggleMusic() {
+        const audio = document.getElementById("bgm");
+        if (audio.paused) audio.play();
+        else audio.pause();
+    }
+
+    // Pre-wedding Photo Slideshow
+    const slideshowImgs = ["S5.png", "S6.png", "S7.png", "S8.png"];
+    let i = 0;
+    const slideshow = document.getElementById("slideshow");
+    const img = document.createElement("img");
+    img.className = "groom-img";
+    slideshow.appendChild(img);
+
+    function showNextImage() {
+        img.src = slideshowImgs[i];
+        i = (i + 1) % slideshowImgs.length;
+    }
+    showNextImage();
+    setInterval(showNextImage, 4000);
+</script>
+
+</body>
+</html>
